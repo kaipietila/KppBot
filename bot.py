@@ -1,6 +1,8 @@
 import discord
 from vars import *
 import random
+from bs4 import BeautifulSoup
+import requests
 
 TOKEN = DISCORD_BOT_SECRET
 
@@ -18,9 +20,33 @@ async def on_message(message):
 
     if message.content.startswith("!roll"):
         roll = random.randint(0,100)
+        roll_record = open("roll_record.txt", "a")
         user = "{0.author.mention}".format(message)
         msg = f"{user} rolls {roll}"
+        roll_record.write(f"{msg}\n")
+        roll_record.close()
         await client.send_message(message.channel, msg)
+
+    if message.content.startswith("!legend"):
+        roll_record = open("roll_record.txt", "r")
+        record = roll_record.read()
+        roll_record.close()
+        await client.send_message(message.channel, record)
+
+    if message.content == ("!steam"):
+        data = requests.get("https://store.steampowered.com/stats/?l=finnish")
+        msg = ''
+        soup = BeautifulSoup(data.text, 'html.parser')
+
+        leaderboard = soup.find('div', {'id': 'detailStats'})
+        table = leaderboard.find('table')
+
+        for tr in table.find_all('tr',{'class': 'player_count_row'}):
+            current_users = tr.find_all('td')[0].text.strip()
+            game = tr.find_all('td')[3].text.strip()
+            msg = (f'{current_users} playing {game}')
+            await client.send_message(message.channel, msg)
+    
 
 @client.event
 async def on_ready():
