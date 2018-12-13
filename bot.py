@@ -20,11 +20,11 @@ async def on_message(message):
 
     if message.content.startswith("!roll"):
         roll = random.randint(0,100)
-        roll_record = open("roll_record.txt", "a")
         user = "{0.author.mention}".format(message)
         msg = f"{user} rolls {roll}"
-        roll_record.write(f"{msg}\n")
-        roll_record.close()
+        with open("roll_record.txt", "a") as f:
+            f.write(f"{msg}\n")
+
         await client.send_message(message.channel, msg)
 
     if message.content.startswith("!legend"):
