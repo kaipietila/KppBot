@@ -8,6 +8,29 @@ TOKEN = DISCORD_BOT_SECRET
 
 client = discord.Client()
 
+possible_answers = [
+    "It is certain",
+    "It is decidedly so",
+    "Without a doubt",
+    "Yes - definitely",
+    "You may rely on it",
+    "As I see it, yes",
+    "Most likely",
+    "Outlook good",
+    "Yes"
+    "Signs point to yes",
+    "Reply hazy, try again",
+    "Ask again later",
+    "Better not tell you now",
+    "Cannot predict now",
+    "Concentrate and ask again",
+    "Don't count on it",
+    "My reply is no",
+    "My sources say no",
+    "Outlook not so good",
+    "Very doubtful",
+]
+
 @client.event
 async def on_message(message):
     # we do not want the bot to reply to itself
@@ -27,7 +50,7 @@ async def on_message(message):
         roll_record.close()
         await client.send_message(message.channel, msg)
 
-    if message.content.startswith("!legend"):
+    if message.content.startswith("!results"):
         roll_record = open("roll_record.txt", "r")
         record = roll_record.read()
         roll_record.close()
@@ -46,6 +69,9 @@ async def on_message(message):
             game = tr.find_all('td')[3].text.strip()
             msg = (f'{current_users} playing {game}')
             await client.send_message(message.channel, msg)
+
+    if message.content.startswith("!8ball"):
+        await client.send_message(message.channel, random.choice(possible_answers))
     
 
 @client.event
