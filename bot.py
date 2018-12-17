@@ -8,6 +8,30 @@ TOKEN = DISCORD_BOT_SECRET
 
 client = discord.Client()
 
+#answers for the !8ball command
+possible_answers = [
+    "It is certain",
+    "It is decidedly so",
+    "Without a doubt",
+    "Yes - definitely",
+    "You may rely on it",
+    "As I see it, yes",
+    "Most likely",
+    "Outlook good",
+    "Yes"
+    "Signs point to yes",
+    "Reply hazy, try again",
+    "Ask again later",
+    "Better not tell you now",
+    "Cannot predict now",
+    "Concentrate and ask again",
+    "Don't count on it",
+    "My reply is no",
+    "My sources say no",
+    "Outlook not so good",
+    "Very doubtful",
+]
+
 @client.event
 async def on_message(message):
     # we do not want the bot to reply to itself
@@ -51,29 +75,6 @@ async def on_message(message):
             msg = (f'{current_users} playing {game}')
             await message.channel.send(msg)
 
-#answers for the !8ball command
-possible_answers = [
-    "It is certain",
-    "It is decidedly so",
-    "Without a doubt",
-    "Yes - definitely",
-    "You may rely on it",
-    "As I see it, yes",
-    "Most likely",
-    "Outlook good",
-    "Yes"
-    "Signs point to yes",
-    "Reply hazy, try again",
-    "Ask again later",
-    "Better not tell you now",
-    "Cannot predict now",
-    "Concentrate and ask again",
-    "Don't count on it",
-    "My reply is no",
-    "My sources say no",
-    "Outlook not so good",
-    "Very doubtful",
-]
     #command !8ball will display one of the possible answers and reply like the magic 8ball
     if message.content.startswith("!8ball"):
         await message.channel.send(random.choice(possible_answers))
