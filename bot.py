@@ -79,6 +79,10 @@ async def on_message(message):
     if message.content.startswith("!8ball"):
         await message.channel.send(random.choice(possible_answers))
     
+    #to print to commandline whose mentioned. Work in progress on something
+    if message.mentions != []:
+        print(f'{message.mentions[0]} mentioned')
+
 
 @client.event
 async def on_ready():
