@@ -48,22 +48,14 @@ async def on_message(message):
         roll = random.randint(0,100)
         user = "{0.author.mention}".format(message)
         msg = f"{user} rolls {roll}"
-<<<<<<< HEAD
-        roll_record.write(f"{msg}\n")
-        roll_record.close()
-        await message.channel.send(msg)
-=======
         with open("roll_record.txt", "a") as f:
             f.write(f"{msg}\n")
-
-        await client.send_message(message.channel, msg)
->>>>>>> läppäri_branch
+        await message.channel.send(msg)
 
     #command !results displays the roll results
     if message.content.startswith("!results"):
-        roll_record = open("roll_record.txt", "r")
-        record = roll_record.read()
-        roll_record.close()
+        with open("roll_record.txt", "r") as f:
+            record = f.read()
         await message.channel.send(record)
 
     #Command !steam will display the 100 most played games on steam. not optimal atm.
