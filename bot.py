@@ -46,12 +46,18 @@ async def on_message(message):
     #With the command !roll the bot rolls 0-100 for you
     if message.content.startswith("!roll"):
         roll = random.randint(0,100)
-        roll_record = open("roll_record.txt", "a")
         user = "{0.author.mention}".format(message)
         msg = f"{user} rolls {roll}"
+<<<<<<< HEAD
         roll_record.write(f"{msg}\n")
         roll_record.close()
         await message.channel.send(msg)
+=======
+        with open("roll_record.txt", "a") as f:
+            f.write(f"{msg}\n")
+
+        await client.send_message(message.channel, msg)
+>>>>>>> läppäri_branch
 
     #command !results displays the roll results
     if message.content.startswith("!results"):
