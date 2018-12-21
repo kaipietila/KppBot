@@ -58,20 +58,26 @@ async def on_message(message):
             record = f.read()
         await message.channel.send(record)
 
-    #Command !steam will display the 100 most played games on steam. not optimal atm.
+    #Command !steam will display the 10 most played games on steam.
     if message.content == ("!steam"):
         data = requests.get("https://store.steampowered.com/stats/?l=finnish")
-        msg = ''
+        msg = 'The most played games on steam right now are:\n'
+        position = 1
         soup = BeautifulSoup(data.text, 'html.parser')
 
         leaderboard = soup.find('div', {'id': 'detailStats'})
         table = leaderboard.find('table')
 
+
         for tr in table.find_all('tr',{'class': 'player_count_row'}):
             current_users = tr.find_all('td')[0].text.strip()
             game = tr.find_all('td')[3].text.strip()
-            msg = (f'{current_users} playing {game}')
-            await message.channel.send(msg)
+            msg += (f'{position}. {current_users} playing {game}\n')
+            position += 1
+            if len(msg) > 450:
+                break
+        
+        await message.channel.send(msg)
 
     #command !8ball will display one of the possible answers and reply like the magic 8ball
     if message.content.startswith("!8ball"):
@@ -79,8 +85,14 @@ async def on_message(message):
     
     #to print to commandline whose mentioned. Work in progress on something
     if message.mentions != []:
-        print(f'{message.mentions[0]} mentioned')
+        pass
 
+    if message.content.startswith("!commands"):
+        commands = ("Bot Commands: \n!roll to roll 0-100 \n!record for the roll results\n"
+                    "!8ball + question to ask the magic 8ball a question \n"
+                    "!hello for a simple hello and\n!steam to get the ~10 most played games on steam."
+                    "Steam command does not work well atm")
+        await message.channel.send(commands)
 
 @client.event
 async def on_ready():
