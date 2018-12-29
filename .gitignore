@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 vars.py
 config.txt
+roll_record.txt
