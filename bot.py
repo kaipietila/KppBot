@@ -1,10 +1,9 @@
 import discord
-from vars import *
 import random
 from bs4 import BeautifulSoup
 import requests
 
-TOKEN = DISCORD_BOT_SECRET
+TOKEN = open('config.txt', 'r').read()
 
 client = discord.Client()
 
