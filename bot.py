@@ -41,7 +41,7 @@ async def on_message(message):
     # With the command !hello the bot replies hello
     if message.content.startswith('!hello'):
         msg = 'Hello {0.author.mention}'.format(message)
-        await message.channel.send(message.channel, msg)
+        await message.channel.send(msg)
 
     #With the command !roll the bot rolls 0-100 for you
     if message.content.startswith("!roll"):
