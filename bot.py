@@ -3,6 +3,7 @@ import random
 from bs4 import BeautifulSoup
 import requests
 
+#get the bot secret token from txt file
 TOKEN = open('config.txt', 'r').read()
 
 client = discord.Client()
