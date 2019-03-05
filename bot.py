@@ -5,7 +5,7 @@ TOKEN = open('config.txt', 'r').read()
 
 description = 'KppBot at your service. Get commands from !commands'
 
-startup_extensions = ["roll", "8ball", "steam"]
+startup_extensions = ["roll", "8ball", "steam", "trivia"]
 
 bot = commands.Bot(command_prefix='!', description=description)
 
