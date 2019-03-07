@@ -4,7 +4,7 @@ from discord.ext import commands
 Magic 8ball cog to KppBot
 """
 
-class EightBall():
+class EightBall(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.possible_answers = [
@@ -30,13 +30,13 @@ class EightBall():
                 "Very doubtful",
             ]
     @commands.command(name="8ball")
-    async def eightball(self, message=''):
+    async def eightball(self, ctx, message=''):
         """!8ball will display one of the possible answers 
         and reply like the magic 8ball"""
         if len(message) != 0:
-            await self.bot.say(random.choice(self.possible_answers))
+            await ctx.send(random.choice(self.possible_answers))
         else: 
-            await self.bot.say("What question do you want to ask me?")
+            await ctx.send("What question do you want to ask me?")
 
 def setup(bot):
     bot.add_cog(EightBall(bot))

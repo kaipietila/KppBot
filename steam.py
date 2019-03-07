@@ -7,12 +7,12 @@ Scraping steampowered.com for the most played games.
 Command !steam will display the about 10 most played games on steam.
 """
 
-class Steam():
+class Steam(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
             
     @commands.command()
-    async def steam(self):
+    async def steam(self, ctx):
         data = requests.get("https://store.steampowered.com/stats/?l=finnish")
         msg = 'The most played games on steam right now are:\n'
         position = 1
@@ -28,7 +28,7 @@ class Steam():
             if len(msg) > 450:
                 break
         
-        await self.bot.say(msg)
+        await ctx.send(msg)
 
 
 def setup(bot):

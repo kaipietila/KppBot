@@ -5,7 +5,7 @@ TOKEN = open('config.txt', 'r').read()
 
 description = 'KppBot at your service. Get commands from !commands'
 
-startup_extensions = ["roll", "8ball", "steam", "trivia"]
+startup_extensions = ['roll', '8ball', 'steam', 'trivia', ]
 
 bot = commands.Bot(command_prefix='!', description=description)
 
@@ -16,28 +16,36 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-@bot.command(pass_context=True)
+@bot.command()
 async def hello(ctx):
     msg = 'Hello {0.message.author.mention}'.format(ctx)
-    await bot.say(msg)
+    await ctx.send(msg)
 
 @bot.command()
-async def comms():
+async def kill(ctx):
+    """
+    Kills connection
+    """
+    await ctx.send("shutting down")
+    await bot.close()
+
+@bot.command()
+async def comms(ctx):
     commands = ("Bot Commands: \n!roll to roll 0-100 \n!record for the roll results\n"
                 "!8ball + question to ask the magic 8ball a question \n"
                 "!hello for a simple hello and\n!steam to get the ~10 most played games on steam."
                 "Steam command does not work well atm")
-    await bot.say(commands)
+    await ctx.send(commands)
 
 @bot.command()
-async def load(extension_name):
+async def load(extension_name, ctx):
     """manual loading of extension"""
     try:
         bot.load_extension(extension_name)
     except (AttributeError, ImportError) as e:
-        await bot.say(f"```py\n{str(e)}\n```")
+        await ctx.send(f"```py\n{str(e)}\n```")
         return
-    await bot.say(f"{extension_name} loaded, Have fun!")
+    await ctx.send(f"{extension_name} loaded, Have fun!")
 
 if __name__ == "__main__":
     """loading extensions on startup"""
