@@ -20,8 +20,8 @@ class Trivia(commands.Cog):
 
     @commands.command()
     async def quiz(self, ctx):
-        index = randint(0, 100)
         quiz_data = get_random_question()
+        index = randint(0, 100)
         question = quiz_data[index]['question']
         answer = quiz_data[index]['answer'].lower()
         await ctx.send(question)
