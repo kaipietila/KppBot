@@ -31,10 +31,11 @@ async def kill(ctx):
 
 @bot.command()
 async def comms(ctx):
-    commands = ("Bot Commands: \n!roll to roll 0-100 \n!record for the roll results\n"
+    commands = ("Bot Commands: \n!roll to roll 0-100 \n!results for the roll results\n"
                 "!8ball + question to ask the magic 8ball a question \n"
                 "!hello for a simple hello and\n!steam to get the ~10 most played games on steam."
-                "Steam command does not work well atm")
+                "Steam command does not work well atm"
+                "!quiz you get a question, jeopardy style")
     await ctx.send(commands)
 
 @bot.command()
