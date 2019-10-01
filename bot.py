@@ -5,7 +5,7 @@ TOKEN = open('config.txt', 'r').read()
 
 description = 'KppBot at your service. Get commands from !commands'
 
-startup_extensions = ['roll', '8ball', 'steam', 'trivia', ]
+startup_extensions = ['roll', '8ball', 'steam', 'trivia', 'chatwheel']
 
 bot = commands.Bot(command_prefix='!', description=description)
 
@@ -38,21 +38,13 @@ async def comms(ctx):
                 "!quiz you get a question, jeopardy style")
     await ctx.send(commands)
 
-@bot.command()
-async def load(extension_name, ctx):
-    """manual loading of extension"""
-    try:
-        bot.load_extension(extension_name)
-    except (AttributeError, ImportError) as e:
-        await ctx.send(f"```py\n{str(e)}\n```")
-        return
-    await ctx.send(f"{extension_name} loaded, Have fun!")
 
 if __name__ == "__main__":
     """loading extensions on startup"""
     for extension in startup_extensions:
         try:
             bot.load_extension(extension)
+            print(f'{extension} loaded successfully!')
         except Exception as e:
             print(f'Failed to load {extension} \n{e}')
 
