@@ -53,6 +53,7 @@ class Chatwheel(commands.Cog):
     async def emotes(self, ctx):
         emotes = [f for f in os.listdir(EMOTE_DIR)]
         for emote in emotes:
+            emote = emote.replace('.mp3','')
             await ctx.send(f'{emote} available to play')
 
     @commands.command(name="join")
