@@ -19,7 +19,7 @@ async def on_ready():
 @bot.command()
 async def hello(ctx):
     msg = 'Hello {0.message.author.mention}'.format(ctx)
-    await ctx.send(msg)
+    await ctx.send(msg) 
 
 @bot.command()
 async def kill(ctx):
